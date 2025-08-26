@@ -41,7 +41,17 @@ rc <class_tag>
 cc <class_tag> <new_class_tag>
     Change a classes tag
 
-mc <class_tag
+mc <class_tag> <class_position>
+    Move a class up [u] or down [d]
+
+aa <class_tag> <assignment>
+    Add an assignment to a class
+
+ra <class_tag> <assignment_index>
+    Remove an assignment from a class
+
+ca <class_tag>
+    Clear a classes assignments
 "#
     )
 }
