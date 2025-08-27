@@ -22,7 +22,7 @@ struct TUI {
         for (class_name, class_data) in self.data_file.content.iter() {
             println!("[{}] {}:", class_data.tag, class_name);
             for (assignment_index, assignment) in class_data.assignments.iter().enumerate() {
-                println!("    {}) {}", assignment_index, assignment);
+                println!("    {}) {}", assignment_index + 1, assignment);
             }
         }
     }
@@ -53,7 +53,12 @@ ra <class_tag> <assignment_index>
 ca <class_tag>
     Clear a classes assignments
 "#
-    )
+    );
+
+    io::stdout().flush().unwrap();
+
+    let mut input_buf = String::new();
+    io::stdin().read_line(&mut input_buf).unwrap();
 }
 
 /// Command to add a class
@@ -104,9 +109,11 @@ fn move_class(data_file: &mut DataFile, class_tag: &str, position: &str) {
             data_file.content.move_index(class_index, class_index - 1);
         } else {
             Error::InvalidMovementDirection.show();
+            return;
         }
     } else {
         Error::ClassOfThatTagNotFound.show();
+        return;
     }
 
     // Write to the data file
@@ -120,6 +127,7 @@ fn add_assignment(data_file: &mut DataFile, class_tag: &str, assignment_name: &s
         class_data.assignments.push(assignment_name.to_owned());
     } else {
         Error::ClassOfThatTagNotFound.show();
+        return;
     }
 
     // Write to the data file
@@ -128,20 +136,24 @@ fn add_assignment(data_file: &mut DataFile, class_tag: &str, assignment_name: &s
 
 /// Command to remove an assignment from a specified class by its index
 fn remove_assignment(data_file: &mut DataFile, class_tag: &str, assignment_index: usize) {
+    println!("{}", assignment_index);
+
     // Remove given assignment by index
     if let Some((_, class_data)) = data_file.find_class_from_tag(class_tag) {
         // get the number of assignments
         let assignment_len = class_data.clone().assignments.len();
 
         // remove the assignment if the index is valid
-        let actual_assignment_index = assignment_index - 1;
-        if actual_assignment_index > 0 && actual_assignment_index < assignment_len {
-            _ = class_data.assignments.remove(assignment_index);
+        let actual_assignment_index: isize = assignment_index as isize - 1;
+        if actual_assignment_index >= 0 && actual_assignment_index < assignment_len as isize {
+            _ = class_data.assignments.remove(actual_assignment_index as usize);
         } else {
             Error::InvalidAssignmentIndex.show();
+            return;
         }
     } else {
         Error::ClassOfThatTagNotFound.show();
+        return;
     }
 
     // Write to the data file
@@ -155,6 +167,7 @@ fn clear_assignments(data_file: &mut DataFile, class_tag: &str) {
         class_data.assignments.clear();
     } else {
         Error::ClassOfThatTagNotFound.show();
+        return;
     }
 
     // Write to the data file
@@ -163,7 +176,7 @@ fn clear_assignments(data_file: &mut DataFile, class_tag: &str) {
 
 
 fn main() {
-    let tui = TUI::new();
+    let mut tui = TUI::new();
 
     let mut is_running = true;
     while is_running {
@@ -184,7 +197,79 @@ fn main() {
         // Match the command
         match input_parse.clone()[0].trim() {
             "e" | "exit" => is_running = false,
-                       _ => {}
+            "h" | "help" => help(),
+
+            "ac" => {
+                if input_parse.len() != 3 {
+                    Error::MissingArguments.show();
+                    continue;
+                }
+
+                add_class(&mut tui.data_file, &input_parse[1], &input_parse[2]);
+            }
+
+            "rc" => {
+                if input_parse.len() != 2 {
+                    Error::MissingArguments.show();
+                    continue;
+                }
+
+                remove_class(&mut tui.data_file, &input_parse[1]);
+            }
+
+            "cc" => {
+                if input_parse.len() != 3 {
+                    Error::MissingArguments.show();
+                    continue;
+                }
+
+                change_class_tag(&mut tui.data_file, &input_parse[1], &input_parse[2]);
+            }
+
+            "mc" => {
+                if input_parse.len() != 3 {
+                    Error::MissingArguments.show();
+                    continue;
+                }
+
+                move_class(&mut tui.data_file, &input_parse[1], &input_parse[2])
+            }
+
+            "aa" => {
+                if input_parse.len() < 3 {
+                    Error::MissingArguments.show();
+                    continue;
+                }
+
+                let assignment_name: String = input_parse.clone()[2..].join(" ");
+                add_assignment(&mut tui.data_file, &input_parse[1], &assignment_name);
+            }
+
+            "ra" => {
+                if input_parse.len() != 3 {
+                    Error::MissingArguments.show();
+                    continue;
+                }
+
+                let assignment_index = input_parse.clone()[2].parse::<usize>();
+                if let Ok(assignment_index) = assignment_index {
+                    remove_assignment(&mut tui.data_file, &input_parse[1], assignment_index);
+                } else {
+                    Error::InvalidArgumentType.show();
+                    continue;
+                }
+            }
+
+            "ca" => {
+                if input_parse.len() != 2 {
+                    Error::MissingArguments.show();
+                    continue;
+                }
+
+                clear_assignments(&mut tui.data_file, &input_parse[1]);
+            }
+
+            _ => {}
         }
     }
 }

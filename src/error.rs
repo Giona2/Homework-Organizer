@@ -6,6 +6,8 @@ pub enum Error {
     TagAleadyExists,
     InvalidMovementDirection,
     InvalidAssignmentIndex,
+    MissingArguments,
+    InvalidArgumentType,
 } impl Error {
     /// Displays a message based on the given error branch, then waits for user to enter
     pub fn show(self) {
@@ -21,6 +23,12 @@ pub enum Error {
             }
             Self::InvalidAssignmentIndex => {
                 print!("An assignment of that index in this class does not exist")
+            }
+            Self::MissingArguments => {
+                print!("An incorrect number of arguments was given. Please run `h` or `help` to view the commands")
+            }
+            Self::InvalidArgumentType => {
+                print!("An argument was given with an invalid type. Please run `h` or `help` to view the commands")
             }
         }
         io::stdout().flush().unwrap();
