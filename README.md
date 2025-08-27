@@ -5,7 +5,9 @@
 
 # Description
 `homework_organizer` is a very simple to-do TUI application meant to keep track of tasks that need to be completed by organizing them into groups  
+  
 This application was developed for a blazingly fast workflow. This is supported by features such as each command only being two letters long, simple command-line parsing, and each command taking very few arguments  
+  
 *Note that only Unix-based operating systems are supported*
 
 # Example Usage
