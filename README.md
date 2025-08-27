@@ -37,7 +37,6 @@ Let's add another class. English, for example.
 
 > ac English e
 ```
----
 ```bash
 
 [a] Algebra:
@@ -57,7 +56,6 @@ Let's add another class. English, for example.
 
 > mc e u
 ```
----
 ```bash
 
 [e] English:
