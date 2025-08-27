@@ -37,14 +37,13 @@ pub struct DataFile {
             .to_str().unwrap()
             .to_owned();
 
-        // If the .local file doesn't exist, create it
-        if !fs::exists(home_dir.clone() + DATA_DIR).unwrap() {
-            // create the data directory
-            fs::create_dir(home_dir.clone() + DATA_DIR).unwrap();
+        // create the data directory
+        fs::create_dir(home_dir.clone() + DATA_DIR)
+            .unwrap_or(());
 
-            // create the data file
-            fs::write(home_dir.clone() + DATA_DIR + DATA_FILE_DIR, "{}").unwrap();
-        }
+        // create the data file
+        fs::write(home_dir.clone() + DATA_DIR + DATA_FILE_DIR, "{}")
+            .unwrap_or(());
 
         // Deserialize the data file
         let data_content = fs::read_to_string(home_dir.clone() + DATA_DIR + DATA_FILE_DIR).unwrap();
