@@ -79,7 +79,7 @@ Let's add another class. English, for example.
   
 ---
   
-Once you have the order of your classes right you should then add assignments you have to complete. You can do this by inserting the `aa` command, the class tag, and the name of the assignment  
+Once you have the order of your classes right you should then add assignments you have to complete. You can do this by inserting the `a` (*a*dd the assignment) command, the class tag, and the name of the assignment  
   
 *For simplicity, the name of the assignment is interpretted as all the content after the class tag. IE, you do not have to place the assignment's name between quotes for it to register. This will actually result in undesired behavior*
 ```bash
@@ -88,7 +88,7 @@ Once you have the order of your classes right you should then add assignments yo
 
 [a] Algebra:
 
-> aa a Math homework
+> a a Math homework
 ```
 ```bash
 
@@ -102,7 +102,7 @@ Once you have the order of your classes right you should then add assignments yo
   
 ---
   
-And when you're finished with the assignment, remove it with the `ra` command by specifying the classes tag and index of the assignment  
+And when you're finished with the assignment, remove it with the `c` (*c*heck off the assignment) command by specifying the classes tag and index of the assignment  
   
 *The indexing starts at `1`*
 ```bash
@@ -112,7 +112,7 @@ And when you're finished with the assignment, remove it with the `ra` command by
 [a] Algebra:
     1. Math homework
 
-> ra a 1
+> c a 1
 ```
 ```bash
 

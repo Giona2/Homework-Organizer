@@ -120,7 +120,7 @@ pub fn move_class(data_file: &mut DataFile, class_tag: &str, position: &str) {
 }
 
 /// Command to add an assignment to a specified class
-pub const ADD_ASSIGNMENT_COMMAND: &str = "aa";
+pub const ADD_ASSIGNMENT_COMMAND: &str = "a";
 pub fn add_assignment(data_file: &mut DataFile, class_tag: &str, assignment_name: &str) {
     // Add the assignment
     if let Some((_, class_data)) = data_file.find_class_from_tag(class_tag) {
@@ -135,7 +135,7 @@ pub fn add_assignment(data_file: &mut DataFile, class_tag: &str, assignment_name
 }
 
 /// Command to remove an assignment from a specified class by its index
-pub const REMOVE_ASSIGNMENT_COMMAND: &str = "ra";
+pub const REMOVE_ASSIGNMENT_COMMAND: &str = "c";
 pub fn remove_assignment(data_file: &mut DataFile, class_tag: &str, assignment_index: usize) {
     println!("{}", assignment_index);
 
