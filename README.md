@@ -1,7 +1,7 @@
 # Table of Contents
-* [Description](description)
-* [Example Usage](example-usage)
-* [Commands](commands)
+* [Description](#description)
+* [Example Usage](#example-usage)
+* [Commands](#commands)
 
 # Description
 `homework_organizer` is a very simple to-do TUI application meant to keep track of tasks that need to be completed by organizing them into groups  
@@ -77,7 +77,6 @@ Once you have the order of your classes right you should then add assignments yo
 
 > aa a Math homework
 ```
----
 ```bash
 
 [e] English:
@@ -99,7 +98,6 @@ And when you're finished with the assignment, remove it with the `ra` command by
 
 > ra a 1
 ```
----
 ```bash
 
 [e] English:
@@ -119,7 +117,7 @@ Finally, when you're done for the day, exit the program either by typing `e` or 
 > e
 ```
   
-For more commands, type `h` or `help` for the help message. See this help message here by seeing the [Commands](commands) section
+For more commands, type `h` or `help` for the help message. See this help message here by seeing the [Commands](#commands) section
 
 # Commands
 ```bash
