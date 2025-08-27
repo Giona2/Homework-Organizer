@@ -48,6 +48,12 @@ r#"
 /// Command to add a class
 pub const ADD_CLASS_COMMAND: &str = "ac";
 pub fn add_class(data_file: &mut DataFile, class_name: &str, class_tag: &str) {
+    // Check if the tag already exists
+    if data_file.clone().tag_already_exists(class_tag) {
+        Error::TagAleadyExists.show();
+        return;
+    }
+
     // Insert the new class
     let class_metadata = ClassData::new(class_tag, []);
     data_file.content.insert(class_name.into(), class_metadata);
