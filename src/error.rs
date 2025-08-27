@@ -19,7 +19,7 @@ pub enum Error {
                 print!("A class with that tag already exists. Please choose a different tag or remove that class first");
             }
             Self::InvalidMovementDirection => {
-                print!("The given movement command is invalid. Please either use \'u\' or \'d\' for up or down");
+                print!("The given movement command is invalid, this is either due to moving in an invalid direction or using an incorrect character. Please either use \'u\' or \'d\' for up or down");
             }
             Self::InvalidAssignmentIndex => {
                 print!("An assignment of that index in this class does not exist")

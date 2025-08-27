@@ -102,10 +102,10 @@ pub fn change_class_tag(data_file: &mut DataFile, from_class_tag: &str, to_class
 pub const MOVE_CLASS_COMMAND: &str = "mc";
 pub fn move_class(data_file: &mut DataFile, class_tag: &str, position: &str) {
     if let Some(class_index) = data_file.clone().find_class_index_from_tag(class_tag) {
-        if position == "u" && class_index < data_file.clone().content.len() - 1 {
-            data_file.content.move_index(class_index, class_index + 1);
-        } else if position == "d" && class_index > 0 {
+        if position == "u" && class_index > 0 {
             data_file.content.move_index(class_index, class_index - 1);
+        } else if position == "d" && class_index < data_file.clone().content.len() - 1 {
+            data_file.content.move_index(class_index, class_index + 1);
         } else {
             Error::InvalidMovementDirection.show();
             return;
