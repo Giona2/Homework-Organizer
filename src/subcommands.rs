@@ -67,7 +67,7 @@ pub const REMOVE_CLASS_COMMAND: &str = "rc";
 pub fn remove_class(data_file: &mut DataFile, class_tag: &str) {
     // Remove given class
     if let Some(class_index) = data_file.clone().find_class_index_from_tag(class_tag) {
-        data_file.content.swap_remove_index(class_index);
+        data_file.content.shift_remove_index(class_index);
     } else {
         Error::ClassOfThatTagNotFound.show();
         return;
